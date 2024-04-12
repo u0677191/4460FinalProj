@@ -3,9 +3,10 @@ from .models import Team, Employee, Athlete
 
 from django.views import View
 from .forms import TeamForm, EmployeeForm,AthleteForm
-from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.shortcuts import render, redirect
+from django.views.generic import FormView
 
 def homepage(request):
     return render(request, 'athletic_department/homepage.html')
@@ -140,36 +141,3 @@ class AthleteDeleteView(View):
         athlete = Athlete.objects.get
         athlete.delete()
         return redirect('athlete_list')
-
-def administrator_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('administrator_dashboard')
-            else:
-                # Authentication failed
-                # You can customize error handling here
-                return render(request, 'login.html', {'form': form, 'error_message': 'Invalid email or password'})
-    else:
-        form = LoginForm()
-    return render(request, 'administrator_login.html', {'form': form})
-
-def administrator_logout(request):
-    logout(request)
-    return redirect('homepage')
-
-def administrator_dashboard(request):
-    # Logic for rendering the administrator dashboard template
-    return render(request, 'administrator_dashboard.html')
-
-
-def administrator_login(request):
-    return render(request, 'athletic_department/administrator_login.html')
-
-def administrator_dashboard(request):
-    return render(request, 'athletic_department/administrator_dashboard.html')

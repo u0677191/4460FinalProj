@@ -25,12 +25,7 @@ urlpatterns = [
     path('athletes/<int:pk>/', views.AthleteDetailView.as_view(), name='athlete_detail'),
     path('athletes/<int:pk>/update/', views.AthleteUpdateView.as_view(), name='athlete_update'),
     path('athletes/<int:pk>/delete/', views.AthleteDeleteView.as_view(), name='athlete_delete'),
-
-    path('homepage/administrator_login/', views.administrator_login, name='administrator_login'),
-    path('administrator_dashboard/', views.administrator_dashboard, name='administrator_dashboard'),
-    path('login/', views.administrator_login, name='login_view'),
-
-
-
+    
+  
 
 ]
