@@ -6,5 +6,4 @@ admin.site.register(Employee)
 admin.site.register(Athlete)
 admin.site.register(Equipment)
 admin.site.register(Event)
-
 #test

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University of Utah Sports Dashboard</title>
+    <title>University of Utah Sports Teams</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,56 +26,47 @@
             text-align: center;
         }
 
-        h2 {
-            color: #C41230;
+        .team-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
         }
-        
-        select, button {
-            font-size: 16px;
+
+        .team-item {
+            margin-bottom: 10px;
             padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
             background-color: #C41230;
             color: #FFFFFF;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        select {
-            width: 100%;
-        }
-
-        button {
-            width: 100%;
-        }
-
-        button:hover {
+        .team-item:hover {
             background-color: #A20B24;
         }
     </style>
+
 </head>
 <body>
-    <div class="container">
-        <h1>University of Utah Sports Dashboard</h1>
-        <div>
-            <h2>View Schedule</h2>
-            <label for="schedule-dropdown">Select a team:</label>
-            <select id="schedule-dropdown">
+    <h1>Teams</h1>
+    <ul class="team-list">
+        <!-- Iterate over the list of teams and display each team's details -->
+        {% for team in teams %}
+            <li class="team-item">
+                <strong>Team Name:</strong> {{ team.name }}<br>
+                <strong>Sport Type:</strong> {{ team.sport_type }}<br>
+                <!-- Add more details as needed -->
+                <form method="post" action="{% url 'team_delete' team.pk %}"></form>
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
 
-            </select> 
-        </div>
-        <div>
-            <h2>View Rankings</h2>
-            <label for="rankings-dropdown">Select a team:</label>
-            <select id="rankings-dropdown">
-            </select>
-        </div>
-        <div>
-            <h2>View Athletes</h2>
-            <label for="athletes-dropdown">Select a team:</label>
-            <select id="athletes-dropdown">
-            </select>
-        </div>
-    </div> 
+    <!-- Add New Team button within the form -->
+    <form method="post" action="{% url 'team_create' %}">
+        {% csrf_token %}
+        <button class="add-team-button" type="submit">Add New Team</button>
+    </form>
 </body>
 </html>

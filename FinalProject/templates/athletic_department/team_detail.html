@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Detail</title>
+</head>
+<body>
+    <h1>Team Detail</h1>
+    <p><strong>Team Name:</strong> {{ team.name }}</p>
+    <p><strong>Sport Type:</strong> {{ team.sport_type }}</p>
+    <p><strong>Email:</strong> {{ team.email }}</p>
+    <p><strong>Established Date:</strong> {{ team.established_date }}</p>
+
+    <!-- Optionally, add links or buttons for editing or deleting the team -->
+    <a href="{% url 'team_update' team.pk %}">Edit</a>
+    <form action="{% url 'team_delete' team.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletes by Sport</title>
+</head>
+<body>
+    <h1>Athletes for {{ sport_type }}</h1>
+    <ul>
+        {% for athlete in athletes %}
+            <li>{{ athlete.firstname }} {{ athlete.lastname }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

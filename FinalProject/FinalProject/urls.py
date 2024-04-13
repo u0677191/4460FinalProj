@@ -17,11 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from athletic_department import views
+from django.views import View
+from athletic_department.views import AthleteListView
+
+
 
 #urlpatterns = [
 #    path('admin/', admin.site.urls),
 #    path('athletic_department/teams/', views.team_list, name='team_list'),
 #    path('athletic_department/homepage/', views.homepage, name='homepage'),
+
 #]
 
 #from django.urls import path
@@ -30,7 +35,17 @@ from athletic_department import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('teams/', views.team_list, name='team_list'),
+    path('', include('athletic_department.urls')),
+
     path('homepage/', views.homepage, name='homepage'),
+    path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
+    path('athletes/', AthleteListView.as_view(), name='athlete_list'),  # Add this line
+    path('athletes/', include('athletic_department.urls')),
+
+    
+
+  
+
+
     # Define other URLs for CRUD operation
 ]

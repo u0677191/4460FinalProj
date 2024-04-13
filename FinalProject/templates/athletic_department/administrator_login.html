@@ -1,3 +1,4 @@
+<!-- administrator_login.html.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +45,8 @@
 <body>
     <div class="container">
         <h2>Administrator Login</h2>
-        <form action="administrator_dashboard.html" method="POST">
+        <form action="{% url 'administrator_login' %}" method="POST">
+            {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
