@@ -1,20 +1,59 @@
-<!-- athelte_list.html -->
-<!-- athlete_list.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
     <h1>Athlete List</h1>
     <ul>
         {% for athlete in athletes %}
-            <li><a href="{% url 'athlete_detail' athlete.pk %}">{{ athlete.firstname }} {{ athlete.lastname }}</a></li>
+            <li>
+                <a href="{% url 'athlete_detail' athlete.pk %}">{{ athlete.firstname }} {{ athlete.lastname }}</a>
+                <a href="{% url 'athlete_delete' athlete.pk %}"><button>Delete</button></a>
+            </li>
         {% endfor %}
     </ul>
     <a href="{% url 'athlete_create' %}"><button>Add Athlete</button></a>
+    <a href="{% url 'athlete_update' %}"><button>Update Athlete</button></a>
+    <a href="{% url 'athlete_detail' %}"><button>Athlete Details</button></a>
 </body>
 </html>

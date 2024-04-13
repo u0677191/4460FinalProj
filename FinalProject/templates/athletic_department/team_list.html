@@ -56,7 +56,7 @@
                 <strong>Team Name:</strong> {{ team.name }}<br>
                 <strong>Sport Type:</strong> {{ team.sport_type }}<br>
                 <!-- Add more details as needed -->
-                <form method="post" action="{% url 'team_delete' team.pk %}">
+                <form method="post" action="{% url 'team_delete' team.pk %}"></form>
                     {% csrf_token %}
                     <button type="submit">Delete</button>
                 </form>

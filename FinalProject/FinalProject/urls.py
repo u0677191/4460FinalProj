@@ -40,6 +40,7 @@ urlpatterns = [
     path('homepage/', views.homepage, name='homepage'),
     path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
     path('athletes/', AthleteListView.as_view(), name='athlete_list'),  # Add this line
+    path('athletes/', include('athletic_department.urls')),
 
     
 
