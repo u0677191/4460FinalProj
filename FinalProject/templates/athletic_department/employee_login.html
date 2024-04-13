@@ -25,7 +25,7 @@
         input[type="text"],
         input[type="password"],
         input[type="submit"] {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -44,7 +44,9 @@
 <body>
     <div class="container">
         <h2>Employee Login</h2>
-        <form action="employee_dashboard.html" method="POST">
+        <!-- Updated form action to use Django URL resolution -->
+        <form action="{% url 'employee_login' %}" method="POST">
+            {% csrf_token %}
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">

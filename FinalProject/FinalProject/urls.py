@@ -35,12 +35,11 @@ from athletic_department.views import AthleteListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('athletic_department.urls')),
-
+    
     path('homepage/', views.homepage, name='homepage'),
-    path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
-    path('athletes/', AthleteListView.as_view(), name='athlete_list'),  # Add this line
-    path('athletes/', include('athletic_department.urls')),
+    #path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
+    path('athletes', AthleteListView.as_view(), name='athlete_list'),  # Add this line
+    path('', include('athletic_department.urls')), 
 
     
 
