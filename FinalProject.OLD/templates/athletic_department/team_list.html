@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Utah Sports Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EAEAEA;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #C41230;
+            text-align: center;
+        }
+
+        h2 {
+            color: #C41230;
+        }
+        
+        select, button {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #C41230;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #A20B24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>University of Utah Sports Dashboard</h1>
+        <div>
+            <h2>View Schedule</h2>
+            <label for="schedule-dropdown">Select a team:</label>
+            <select id="schedule-dropdown">
+
+            </select> 
+        </div>
+        <div>
+            <h2>View Rankings</h2>
+            <label for="rankings-dropdown">Select a team:</label>
+            <select id="rankings-dropdown">
+            </select>
+        </div>
+        <div>
+            <h2>View Athletes</h2>
+            <label for="athletes-dropdown">Select a team:</label>
+            <select id="athletes-dropdown">
+            </select>
+        </div>
+    </div> 
+</body>
+</html>

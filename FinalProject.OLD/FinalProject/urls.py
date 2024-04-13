@@ -22,6 +22,7 @@ from athletic_department import views
 #    path('admin/', admin.site.urls),
 #    path('athletic_department/teams/', views.team_list, name='team_list'),
 #    path('athletic_department/homepage/', views.homepage, name='homepage'),
+
 #]
 
 #from django.urls import path
@@ -32,5 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('teams/', views.team_list, name='team_list'),
     path('homepage/', views.homepage, name='homepage'),
+    path('', include('athletic_department.urls')),
     # Define other URLs for CRUD operation
 ]
