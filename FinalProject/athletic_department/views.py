@@ -66,7 +66,7 @@ def employee_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
             # Check if the user is a superuser
@@ -75,11 +75,13 @@ def employee_login(request):
             elif user.is_staff:
                 return redirect('employee_dashboard')  # Redirect to the staff dashboard
             else:
-                # Optionally handle non-staff users differently
-                return redirect('some_general_page')
+                # Handle non-staff and non-superuser differently, show an unauthorized message
+                messages.error(request, 'You are not authorized to access this page.')
+                return render(request, 'athletic_department/employee_login.html')
         else:
             # Return an error message if login fails
-            return render(request, 'athletic_department/employee_login.html', {'error': 'Invalid username or password'})
+            messages.error(request, 'Invalid username or password')
+            return render(request, 'athletic_department/employee_login.html')
     # If not a POST request, show the login form
     return render(request, 'athletic_department/employee_login.html')
 

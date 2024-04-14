@@ -39,11 +39,24 @@
         input[type="submit"]:hover {
             background-color: #d40000;
         }
+        .messages {
+            text-align: center;
+            padding: 10px;
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Employee Login</h2>
+        <!-- Display messages from Django's messaging framework -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         <!-- Updated form action to use Django URL resolution -->
         <form action="{% url 'employee_login' %}" method="POST">
             {% csrf_token %}
