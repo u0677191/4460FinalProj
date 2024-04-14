@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team List</title>
+    <title>Event List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,21 +39,21 @@
     </style>
 </head>
 <body>
-    <h1>Team List</h1>
+    <h1>Event List</h1>
     <ul>
-        {% for team in teams %}
+        {% for event in events %}
             <li>
-                <strong>{{ team.name }} {{ team.sport_type }}</strong> {{ team.established }} - {{ team.ranking }} - {{ team.email }} - {{ team.income }} - {{ team.cost }}
+                <strong>{{ event.name }} {{ event.annual_cost }}</strong> ({{ event.incomeS1 }}) - {{ event.costS1 }} - {{ event.incomeS2 }} - {{ event.costS2 }}
                 <div>
-                    <a href="{% url 'team_detail' team.teamid %}"><button>Details</button></a>
-                    <a href="{% url 'team_delete' team.teamid %}"><button>Delete</button></a>
+                    <a href="{% url 'event_detail' event.eventid %}"><button>Details</button></a>
+                    <a href="{% url 'event_delete' event.eventid %}"><button>Delete</button></a>
                 </div>
             </li>
         {% empty %}
-            <li>No teams found.</li>
+            <li>No event found.</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'athletic_department:team_create' %}"><button>Add Team</button></a>
+    <a href="{% url 'event_create' %}"><button>Add Event</button></a>
     <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
 </body>
 </html>

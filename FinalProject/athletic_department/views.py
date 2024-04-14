@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .models import Team, Employee , Athlete
+from .models import Team, Employee , Athlete, Equipment, Event
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView , DetailView
-from .forms import TeamForm, EmployeeForm, AthleteForm
+from .forms import TeamForm, EmployeeForm, AthleteForm, EquipmentForm, EventForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -106,6 +106,31 @@ def athlete_delete(request, athleteid):
 # End Athlete Records
 # Begin Employee Records
 
+#added 4141045am
+class EmployeeCreateView(CreateView):
+    model = Employee
+    #fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    form_class = EmployeeForm
+    template_name = 'athletic_department/employee_create.html'
+    success_url = reverse_lazy('employee_list')
+
+class EmployeeUpdateView(UpdateView):
+    model = Employee
+    fields = ['employeeid', 'firstname', 'lastname', 'email', 'start_date']
+    template_name = 'athletic_department/employee_form.html'
+    success_url = reverse_lazy('employee_list')  # Ensure you have a URL named 'team_list' 
+
+class EmployeeDeleteView(DeleteView):
+    model = Employee
+    template_name = 'athletic_department/employee_delete.html'
+    success_url = reverse_lazy('employee_list')      
+
+class EmployeeDetailView(DetailView):
+    model = Employee
+    form_class = EmployeeForm
+    template_name = 'athletic_department/employee_detail.html'
+    success_url = '/employees/'
+
 def employee_list(request):
     employees = Employee.objects.all()  # Retrieves all athletes from the database
     return render(request, 'athletic_department/employee_list.html', {'employees': employees})
@@ -156,7 +181,7 @@ class TeamCreateView(CreateView):
 
 class TeamUpdateView(UpdateView):
     model = Team
-    fields = ['teamid', 'name', 'sport_type', 'rank', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
     template_name = 'athletic_department/team_form.html'
     success_url = reverse_lazy('team_list')  # Ensure you have a URL named 'team_list'
 
@@ -196,3 +221,94 @@ def employee_detail(request, employeeid):
 def team_create(request, teamid):
     team = get_object_or_404(Team, teamid=teamid)
     return render(request, 'athletic_department/team_create.html', {'team': team})
+
+# Begin Equipment Resources
+
+class EquipmentCreateView(CreateView):
+    model = Equipment
+    #fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    form_class = EquipmentForm
+    template_name = 'athletic_department/equipment_create.html'
+    success_url = reverse_lazy('equipment_list')
+
+class EquipmentUpdateView(UpdateView):
+    model = Equipment
+    fields = ['equipmenteid', 'annual_cost', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    template_name = 'athletic_department/equipment_form.html'
+    success_url = reverse_lazy('equipment_list')  # Ensure you have a URL named 'team_list' 
+
+class EquipmentDeleteView(DeleteView):
+    model = Equipment
+    template_name = 'athletic_department/equipment_delete.html'
+    success_url = reverse_lazy('equipment_list')      
+
+class EquipmentDetailView(DetailView):
+    model = Equipment
+    form_class = EquipmentForm
+    template_name = 'athletic_department/equipment_detail.html'
+    success_url = '/equipments/'
+
+def equipment_detail(request, equipmentid):
+    equipment = get_object_or_404(Equipment, equipmentid=equipmentid)
+    return render(request, 'athletic_department/equipment_detail.html', {'equipment': equipment})
+
+def equipment_list(request):
+    equipments = Equipment.objects.all()
+    return render(request, 'athletic_department/equipment_list.html', {'equipments': equipments})
+
+def equipment_delete(request, equipmentid):
+    equipment = get_object_or_404(Equipment, equipmentid=equipmentid)
+    if request.method == 'POST':
+        equipment.delete()
+        return redirect('athletic_department:equipment_list')  # Redirect to the team list view after deletion
+    else:
+        return render(request, 'athletic_department/confirm_equ_delete.html', {'equipment': equipment})
+    
+# Begin Event Resources
+
+class EventCreateView(CreateView):
+    model = Event
+    #fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    form_class = EquipmentForm
+    template_name = 'athletic_department/event_create.html'
+    success_url = reverse_lazy('event_list')
+
+class EventUpdateView(UpdateView):
+    model = Event
+    fields = ['eventeid', 'annual_cost', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    template_name = 'athletic_department/event_form.html'
+    success_url = reverse_lazy('event_list')  # Ensure you have a URL named 'team_list' 
+
+class EventDeleteView(DeleteView):
+    model = Event
+    template_name = 'athletic_department/event_delete.html'
+    success_url = reverse_lazy('event_list')      
+
+class EventDetailView(DetailView):
+    model = Event
+    form_class = EventForm
+    template_name = 'athletic_department/event_detail.html'
+    success_url = '/events/'
+
+def event_detail(request, eventid):
+    event = get_object_or_404(Event, eventid=eventid)
+    return render(request, 'athletic_department/event_detail.html', {'event': event})
+
+def event_list(request):
+    events = Event.objects.all()
+    return render(request, 'athletic_department/event_list.html', {'events': events})
+
+def event_delete(request, eventid):
+    event = get_object_or_404(Event, eventid=eventid)
+    if request.method == 'POST':
+        event.delete()
+        return redirect('athletic_department:event_list')  # Redirect to the team list view after deletion
+    else:
+        return render(request, 'athletic_department/confirm_evt_delete.html', {'event': event})    
+
+def event_create(request, eventid):
+    event = get_object_or_404(Event, eventid=eventid)
+    return render(request, 'athletic_department/event_create.html', {'event': event})    
+    
+# Begin Admin Reports Resources
+

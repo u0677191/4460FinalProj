@@ -3,19 +3,20 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
-
-
 class Team(models.Model):
-    teamid = models.CharField(max_length=100,default='')
+    teamid = models.CharField(max_length=100, default='', primary_key=True)
     name = models.CharField(max_length=100)
     sport_type = models.CharField(max_length=100)
     ranking = models.IntegerField(default=0)
     email = models.EmailField(default='')
-    established_date = models.DateField(default=timezone.now) 
+    established_date = models.DateField(default=timezone.now)
     incomeS1 = models.IntegerField(default=0)
     costS1 = models.IntegerField(default=0)
     incomeS2 = models.IntegerField(default=0)
     costS2 = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class Employee(models.Model):
     employeeid = models.CharField(max_length=100,default='',primary_key=True)
@@ -43,25 +44,35 @@ class Athlete(models.Model):
 
 
 class Equipment(models.Model):
-    equipmentid = models.CharField(max_length=100, null=True)
-    teamid = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    equipmentid = models.CharField(max_length=100, default='', primary_key=True)
+    name = models.CharField(max_length=100, default='')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='equipments', null=True)
     annual_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     year = models.PositiveSmallIntegerField(null=True)
+    incomeS1 = models.IntegerField(default=0)
+    costS1 = models.IntegerField(default=0)
+    incomeS2 = models.IntegerField(default=0)
+    costS2 = models.IntegerField(default=0)
 
 class Event(models.Model):
     eventid = models.CharField(max_length=100, default='')
     teamid = models.ForeignKey(Team, on_delete=models.CASCADE, default='')
     venue = models.CharField(max_length=100,default='')
     date = models.DateField()
-    income = models.DecimalField(max_digits=10, decimal_places=2)
-    expenses = models.DecimalField(max_digits=10, decimal_places=2,default=0)
+    incomeS1 = models.IntegerField(default=0)
+    costS1 = models.IntegerField(default=0)
+    incomeS2 = models.IntegerField(default=0)
+    costS2 = models.IntegerField(default=0)
     opponent = models.CharField(max_length=100,default='')
 
-class Rank(models.Model):
-    rankid = models.CharField(max_length=100)
-    teamid = models.ForeignKey(Team, on_delete=models.CASCADE)
-    rank = models.IntegerField()
+class Ranking(models.Model):
+    rankingid = models.CharField(max_length=100, primary_key=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='rankings')
+    ranking = models.IntegerField()
     date = models.DateField()
+
+    def __str__(self):
+        return f"{self.team.name} - {self.ranking} on {self.date}"
 
 class Scholarship(models.Model):
     scholarshipid = models.CharField(max_length=100)
@@ -77,5 +88,6 @@ class Income(models.Model):
     type = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     year = models.PositiveSmallIntegerField()
+
 
 # Remember to run migrations after defining your models
