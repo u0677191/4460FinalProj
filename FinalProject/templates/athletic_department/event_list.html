@@ -59,32 +59,6 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <h1>Event List</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <span class="label">EventID:</span> <span class="info">{{ event.eventid }}</span><br>
-                <span class="label">Name:</span> <span class="info">{{ event.name }}</span><br>
-                <span class="label">Team:</span> <span class="info">{{ event.team}}</span><br>
-                <span class="label">Annual Cost:</span> <span class="info">{{ event.annual_cost }}</span><br>
-                <span class="label">Year:</span> <span class="info">{{ event.date }}</span><br>
-                <span class="label">Income S1:</span> <span class="info">{{ event.incomeS1 }}</span><br>
-                <span class="label">Cost S1:</span> <span class="info">{{ event.costS1 }}</span><br>
-                <span class="label">Income S2:</span> <span class="info">{{ event.incomeS2 }}</span><br>
-                <span class="label">Cost S2:</span> <span class="info">{{ event.costS2 }}</span><br>
-                <div>
-                    <a href="{% url 'event_detail' event.eventid %}"><button>Details</button></a>
-                    <a href="{% url 'event_delete' event.eventid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No event found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'event_create' %}"><button>Add Event</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
-=======
     <div class="container">
         <h1>Event List</h1>
         <ul>
@@ -111,6 +85,5 @@
         <a href="{% url 'event_create' %}"><button>Add Event</button></a>
         <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
     </div>
->>>>>>> 68eb4593da63ee2f9694e99221008deeacd595bc
 </body>
 </html>

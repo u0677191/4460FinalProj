@@ -58,9 +58,9 @@ urlpatterns = [
     path('equipment/update/', EquipmentUpdateView.as_view(), name='equipment_update'),
     path('equipment/detail/', EquipmentDetailView.as_view(), name='equipment_detail'),
     path('equipment/<int:pk>/delete/', EquipmentDeleteView.as_view(), name='equipment_delete'),
-    path('equipment/delete/<str:athleteid>/', equipment_delete, name='equipment_delete'),
+    path('equipment/delete/<str:equipmentid>/', equipment_delete, name='equipment_delete'),
     path('equipments/', equipment_list, name='equipment_list'),
-    path('equipment/<str:athleteid>/', equipment_detail, name='equipment_detail'),
+    path('equipment/<str:equipmentid>/', equipment_detail, name='equipment_detail'),
     
     # Begin Event Paths
 
