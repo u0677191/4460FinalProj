@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Athlete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete <strong>{{ athlete.firstname }} {{ athlete.lastname }}</strong>?</p>
+    <form action="{% url 'athlete_delete' athlete.athleteid %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="athleteid" value="{{ athlete.athleteid }}">
+        <button type="submit">Delete Athlete</button>
+    </form>
+    <a href="{% url 'athlete_list' %}"><button type="button">Cancel</button></a>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Athlete</title>
+</head>
+<body>
+    <h1>Are you sure you want to delete this athlete?</h1>
+    <form action="{% url 'athlete_delete' athleteid=athlete.athleteid %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+    </form>
+    <a href="{% url 'athletic_department:athlete_list' %}">Cancel</a>
+</body>
+</html>

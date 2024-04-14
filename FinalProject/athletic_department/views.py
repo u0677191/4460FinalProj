@@ -68,8 +68,12 @@ class AthleteDetailView(DetailView):
 
 class AthleteDeleteView(DeleteView):
     model = Athlete
-    template_name = 'athletic_department/athlete_confirm_delete.html'
+    template_name = 'athletic_department/confirm_ath_delete.html'
     success_url = reverse_lazy('athlete_list')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        return obj
 
 class EmployeeListView(ListView):
     model = Employee
@@ -114,12 +118,20 @@ def athlete_detail(request, athleteid):
     athlete = get_object_or_404(Athlete, athleteid=athleteid)
     return render(request, 'athletic_department/athlete_detail.html', {'athlete': athlete})
 
-def athlete_delete(request, pk):
-    athlete = get_object_or_404(Athlete, pk=pk)
+def athlete_delete(request, athleteid):
+    athlete = get_object_or_404(Athlete, athleteid=athleteid)
     if request.method == 'POST':
         athlete.delete()
-        return redirect('athlete_list')
-    return render(request, 'athletic_department/athlete_confirm_delete.html', {'athlete': athlete})
+        return redirect('athletic_department:athlete_list')  # Redirect to the athlete list view after deletion
+    else:
+        return render(request, 'athletic_department/confirm_ath_delete.html', {'athlete': athlete})
+
+#def athlete_delete(request, pk):
+#    athlete = get_object_or_404(Athlete, pk=pk)
+#    if request.method == 'POST':
+#        athlete.delete()
+#        return redirect('athlete_list')
+#    return render(request, 'athletic_department/athlete_confirm_delete.html', {'athlete': athlete})
 
 # End Athlete Records
 # Begin Employee Records

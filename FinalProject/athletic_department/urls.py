@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from .views import (AthleteCreateView, TeamCreateView , AthleteUpdateView, AthleteDetailView, AthleteDeleteView, 
-                    employee_login, employee_detail, employee_delete, athlete_list, athlete_detail, employee_create)
+                    athlete_delete, employee_detail, employee_delete, athlete_list, athlete_detail, employee_create)
 
 
 
@@ -17,7 +17,7 @@ urlpatterns = [
     path('athlete/<int:pk>/delete/', AthleteDeleteView.as_view(), name='athlete_delete'),
 
     # Begin Felix's test URLS
-
+    path('athlete/delete/<str:athleteid>/', athlete_delete, name='athlete_delete'),
     path('athletes/', athlete_list, name='athlete_list'),
     path('athlete/<str:athleteid>/', athlete_detail, name='athlete_detail'),
     #path('athlete/<str:athleteid>/delete/', athlete_delete, name='athlete_delete'),
