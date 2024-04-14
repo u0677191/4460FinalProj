@@ -9,25 +9,22 @@
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
         }
-
         h1 {
             color: red;
         }
-
         ul {
             list-style-type: none;
             padding: 0;
         }
-
         li {
             margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
         }
-
         a {
             text-decoration: none;
             color: black;
         }
-
         button {
             padding: 10px 20px;
             background-color: red;
@@ -36,7 +33,6 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         button:hover {
             background-color: darkred;
         }
@@ -47,13 +43,16 @@
     <ul>
         {% for athlete in athletes %}
             <li>
-                <a href="{% url 'athlete_detail' athlete.pk %}">{{ athlete.firstname }} {{ athlete.lastname }}</a>
-                <a href="{% url 'athlete_delete' athlete.pk %}"><button>Delete</button></a>
+                <strong>{{ athlete.firstname }} {{ athlete.lastname }}</strong> ({{ athlete.position }}) - {{ athlete.academic_level }} - {{ athlete.contact }} - {{ athlete.sport_type }}
+                <div>
+                    <a href="{% url 'athlete_detail' athlete.athleteid %}"><button>Details</button></a>
+                    <a href="{% url 'athlete_delete' athlete.athleteid %}"><button>Delete</button></a>
+                </div>
             </li>
+        {% empty %}
+            <li>No athletes found.</li>
         {% endfor %}
     </ul>
     <a href="{% url 'athlete_create' %}"><button>Add Athlete</button></a>
-    <a href="{% url 'athlete_update' %}"><button>Update Athlete</button></a>
-    <a href="{% url 'athlete_detail' %}"><button>Athlete Details</button></a>
 </body>
 </html>
