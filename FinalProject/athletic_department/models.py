@@ -56,14 +56,18 @@ class Equipment(models.Model):
 
 class Event(models.Model):
     eventid = models.CharField(max_length=100, default='')
-    teamid = models.ForeignKey(Team, on_delete=models.CASCADE, default='')
-    venue = models.CharField(max_length=100,default='')
-    date = models.DateField()
+    name = models.CharField(max_length=100, default='')
+    teamid = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_games')
+    venue = models.CharField(max_length=100, default='')
+    date = models.DateField(default=timezone.now)
     incomeS1 = models.IntegerField(default=0)
     costS1 = models.IntegerField(default=0)
     incomeS2 = models.IntegerField(default=0)
     costS2 = models.IntegerField(default=0)
-    opponent = models.CharField(max_length=100,default='')
+    opponent = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='away_games')
+
+    def __str__(self):
+        return f"{self.teamid} vs {self.opponent} on {self.date}"
 
 class Ranking(models.Model):
     rankingid = models.CharField(max_length=100, primary_key=True)

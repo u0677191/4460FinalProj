@@ -48,9 +48,9 @@ urlpatterns = [
     path('employee/update/', EmployeeUpdateView.as_view(), name='employee_update'),
     path('employee/detail/', EmployeeDetailView.as_view(), name='employee_detail'),
     path('employee/<int:pk>/delete/', EmployeeDeleteView.as_view(), name='employee_delete'),
-    path('employee/delete/<str:athleteid>/', employee_delete, name='employee_delete'),
+    path('employee/delete/<str:employeeid>/', employee_delete, name='employee_delete'),
     path('employees/', employee_list, name='employee_list'),
-    path('employee/<str:athleteid>/', employee_detail, name='employee_detail'),
+    path('employee/<str:employeeid>/', employee_detail, name='employee_detail'),
     
     # Begin Equipment Paths
 

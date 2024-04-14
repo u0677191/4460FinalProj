@@ -269,7 +269,7 @@ def equipment_delete(request, equipmentid):
 class EventCreateView(CreateView):
     model = Event
     #fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
-    form_class = EquipmentForm
+    form_class = EventForm
     template_name = 'athletic_department/event_create.html'
     success_url = reverse_lazy('event_list')
 

@@ -7,9 +7,10 @@
 </head>
 <body>
     <h1>{{ event.name }}</h1>
-    <p><strong>Date:</strong> {{ equipment.date }}</p>
+    <p><strong>Date:</strong> {{ event.date }}</p>
     <p><strong>Teams:</strong> {{ team.name }} vs. {{ team.name }}</p>
     <p><strong>Season 1 Cost:</strong> {{ event.costS1 }}</p>
     <p><strong>Season 1 Income:</strong> {{ event.incomeS1 }}</p>
 </body>
+<a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
 </html>
