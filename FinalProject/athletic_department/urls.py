@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from .views import (AthleteCreateView, TeamCreateView , AthleteUpdateView, AthleteDetailView, AthleteDeleteView, 
-                    employee_login, employee_dashboard, athlete_delete, athlete_list, athlete_detail)
+                    employee_login, employee_detail, employee_delete, athlete_list, athlete_detail, employee_create)
 
 
 
@@ -27,9 +27,10 @@ urlpatterns = [
 
     path('employee_login/', views.employee_login, name='employee_login'),
     path('employee_dashboard/', views.employee_dashboard, name='employee_dashboard'),
-
-    #path('add_employee/', views.add_employee, name='add_employee'),
-
+    path('employee_list/', views.employee_list, name='employee_list'),
+    path('employee/create/', employee_create, name='employee_create'),
+    path('employee/<str:employeeid>/', employee_detail, name='employee_detail'),
+    path('employee/delete/<str:employeeid>/', employee_delete, name='employee_delete'),
     
 
     # Define other URLs for CRUD operation

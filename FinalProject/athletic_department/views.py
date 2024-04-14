@@ -71,6 +71,12 @@ class AthleteDeleteView(DeleteView):
     template_name = 'athletic_department/athlete_confirm_delete.html'
     success_url = reverse_lazy('athlete_list')
 
+class EmployeeListView(ListView):
+    model = Employee
+    form_class = EmployeeForm
+    template_name = 'athletic_department/employees/employee_list.html'
+    success_url = '/employees/'    
+
 #def employee_login(request):
    # return render(request, 'athletic_department/employee_login.html')
 
@@ -106,7 +112,7 @@ def athlete_list(request):
 def athlete_detail(request, athleteid):
     # Retrieve an athlete by their 'athleteid'
     athlete = get_object_or_404(Athlete, athleteid=athleteid)
-    return render(request, 'your_app_name/athlete_detail.html', {'athlete': athlete})
+    return render(request, 'athletic_department/athlete_detail.html', {'athlete': athlete})
 
 def athlete_delete(request, pk):
     athlete = get_object_or_404(Athlete, pk=pk)
@@ -114,3 +120,37 @@ def athlete_delete(request, pk):
         athlete.delete()
         return redirect('athlete_list')
     return render(request, 'athletic_department/athlete_confirm_delete.html', {'athlete': athlete})
+
+# End Athlete Records
+# Begin Employee Records
+
+def employee_list(request):
+    employees = Employee.objects.all()  # Retrieves all athletes from the database
+    return render(request, 'athletic_department/employee_list.html', {'employees': employees})
+
+def employee_create(request):
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('athletic_department:employee_list')  # Redirect after POST
+        else:
+            # Re-render the form with validation errors
+            return render(request, 'athletic_department/employee_create.html', {'form': form})
+    else:
+        form = EmployeeForm()  # An unbound form
+        return render(request, 'athletic_department/employee_create.html', {'form': form})
+
+def employee_detail(request, employeeid):
+    employee = get_object_or_404(Employee, employeeid=employeeid)
+    return render(request, 'athletic_department/employee_detail.html', {'employee': employee})
+
+def employee_delete(request, employeeid):
+    employee = get_object_or_404(Employee, employeeid=employeeid)
+    if request.method == 'POST':
+        employee.delete()
+        return redirect('athletic_department:employee_list')  # Redirect to the employee list view after deletion
+    else:
+        return render(request, 'athletic_department/confirm_emp_delete.html', {'employee': employee})
+
+# End Employee Resources

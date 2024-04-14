@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from athletic_department import views
+from athletic_department import views, urls as athletic_urls
 from django.views import View
-from athletic_department.views import AthleteListView
+from athletic_department.views import AthleteListView, EmployeeListView
 
 
 
@@ -40,11 +40,8 @@ urlpatterns = [
     #path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
     path('athletes', AthleteListView.as_view(), name='athlete_list'),  # Add this line
     path('', include('athletic_department.urls')), 
-
-    
-
-  
-
+    path('employees/', include((athletic_urls.urlpatterns, 'athletic_department'), namespace='employees')),
+    #path('employees/', include('athletic_department.urls', namespace='athletic_department')),
 
     # Define other URLs for CRUD operation
 ]
