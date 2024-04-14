@@ -9,8 +9,6 @@ urlpatterns = [
 
     path('teams/', views.team_list, name='team_list'),
     path('teams/create/', TeamCreateView.as_view(), name='team_create'),
-
-    
     path('athlete/create/', AthleteCreateView.as_view(), name='athlete_create'),
     path('athlete/update/', AthleteUpdateView.as_view(), name='athlete_update'),
     path('athlete/detail/', AthleteDetailView.as_view(), name='athlete_detail'),
