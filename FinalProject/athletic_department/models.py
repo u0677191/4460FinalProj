@@ -6,13 +6,19 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 class Team(models.Model):
+    teamid = models.CharField(max_length=100,default='')
     name = models.CharField(max_length=100)
     sport_type = models.CharField(max_length=100)
+    ranking = models.IntegerField(default=0)
     email = models.EmailField(default='')
     established_date = models.DateField(default=timezone.now) 
+    incomeS1 = models.IntegerField(default=0)
+    costS1 = models.IntegerField(default=0)
+    incomeS2 = models.IntegerField(default=0)
+    costS2 = models.IntegerField(default=0)
 
 class Employee(models.Model):
-    employeeid = models.CharField(max_length=100,default='')
+    employeeid = models.CharField(max_length=100,default='',primary_key=True)
     lastname = models.CharField(max_length=100,default='')
     firstname = models.CharField(max_length=100,default='')
     title = models.CharField(max_length=100,default='Employee')

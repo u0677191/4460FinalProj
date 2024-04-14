@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from athletic_department import views, urls as athletic_urls
+from athletic_department import views
 from django.views import View
-from athletic_department.views import AthleteListView, EmployeeListView
+from athletic_department.views import AthleteListView, EmployeeListView, TeamListView
+import athletic_department.urls as athletic_urls
 
 
 
@@ -34,13 +35,17 @@ from athletic_department.views import AthleteListView, EmployeeListView
 
 
 urlpatterns = [
+    #path('', include('athletic_department.urls')),
     path('admin/', admin.site.urls),
     
     path('homepage/', views.homepage, name='homepage'),
-    #path('teams/', include('athletic_department.urls')),  # Add this line to include the team-related URLs
+    #path('teams', include(('athletic_department.urls', 'athletic_department'), namespace='teams')),
+    path('teams', TeamListView.as_view(), name='team_list'),  # Add this line
     path('athletes', AthleteListView.as_view(), name='athlete_list'),  # Add this line
-    path('', include('athletic_department.urls')), 
-    path('employees/', include((athletic_urls.urlpatterns, 'athletic_department'), namespace='employees')),
+    path('', include('athletic_department.urls')),
+    path('employees/', include((athletic_urls.urlpatterns, 'athletic_department'))),# namespace='athletic_department')),
+    #path('', include('athletic_department.urls')),
+    #path('employees/', EmployeeListView.as_view(), name='employee_list'),
     #path('employees/', include('athletic_department.urls', namespace='athletic_department')),
 
     # Define other URLs for CRUD operation

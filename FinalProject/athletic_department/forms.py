@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Team, Employee, Athlete, Equipment, Event, Rank, Scholarship, Income
+from .models import Team, Employee, Athlete, Equipment, Event, Scholarship, Income
 
 class TeamForm(forms.ModelForm):
     class Meta:
@@ -34,10 +34,10 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = '__all__'
 
-class RankForm(forms.ModelForm):
-    class Meta:
-        model = Rank
-        fields = '__all__'
+#class RankForm(forms.ModelForm):
+#    class Meta:
+#        model = Rank
+#        fields = '__all__'
 
 class ScholarshipForm(forms.ModelForm):
     class Meta:

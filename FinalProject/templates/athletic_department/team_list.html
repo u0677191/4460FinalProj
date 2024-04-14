@@ -3,70 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University of Utah Sports Teams</title>
+    <title>Team List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #EAEAEA;
-            margin: 0;
-            padding: 0;
+            background-color: #f2f2f2;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
         h1 {
-            color: #C41230;
-            text-align: center;
+            color: red;
         }
-
-        .team-list {
+        ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
         }
-
-        .team-item {
+        li {
             margin-bottom: 10px;
-            padding: 10px;
-            background-color: #C41230;
-            color: #FFFFFF;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
         }
-
-        .team-item:hover {
-            background-color: #A20B24;
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: darkred;
         }
     </style>
-
 </head>
 <body>
-    <h1>Teams</h1>
-    <ul class="team-list">
-        <!-- Iterate over the list of teams and display each team's details -->
+    <h1>Team List</h1>
+    <ul>
         {% for team in teams %}
-            <li class="team-item">
-                <strong>Team Name:</strong> {{ team.name }}<br>
-                <strong>Sport Type:</strong> {{ team.sport_type }}<br>
-                <!-- Add more details as needed -->
-                <form method="post" action="{% url 'team_delete' team.pk %}"></form>
-                    {% csrf_token %}
-                    <button type="submit">Delete</button>
-                </form>
+            <li>
+                <strong>{{ team.name }} {{team.sport_type }}</strong> {{ team.established }} - {{ team.ranking }} - {{ team.email }} - {{ team.income }} - {{ team.cost }}
+                <div>
+                    <a href="{% url 'team_detail' team.teamid %}"><button>Details</button></a>
+                    <a href="{% url 'team_delete' team.teamid %}"><button>Delete</button></a>
+                </div>
             </li>
+        {% empty %}
+            <li>No teams found.</li>
         {% endfor %}
-
-    <!-- Add New Team button within the form -->
-    <form method="post" action="{% url 'team_create' %}">
-        {% csrf_token %}
-        <button class="add-team-button" type="submit">Add New Team</button>
-    </form>
+    </ul>
+    <a href="{% url 'athletic_department:team_create' %}"><button>Add Team</button></a>
+    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
 </body>
 </html>

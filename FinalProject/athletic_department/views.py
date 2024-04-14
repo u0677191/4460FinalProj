@@ -12,29 +12,6 @@ from django.urls import reverse, reverse_lazy
 def homepage(request):
     return render(request, 'athletic_department/Homepage.html')
 
-def team_list(request):
-    teams = Team.objects.all()
-    return render(request, 'athletic_department/team_list.html', {'teams': teams})
-
-
-
-class TeamCreateView(CreateView):
-    model = Team
-    form_class = TeamForm
-    template_name = 'athletic_department/team_form.html'
-    success_url = '/teams/'
-
-class TeamUpdateView(UpdateView):
-    model = Team
-    form_class = TeamForm
-    template_name = 'athletic_department/team_form.html'
-    success_url = '/teams/'
-
-class TeamDeleteView(DeleteView):
-    model = Team
-    form_class = TeamForm
-    template_name = 'athletic_department/team_form.html'
-    success_url = '/teams/'
 
 class AthleteListView(ListView):
     model = Athlete
@@ -126,13 +103,6 @@ def athlete_delete(request, athleteid):
     else:
         return render(request, 'athletic_department/confirm_ath_delete.html', {'athlete': athlete})
 
-#def athlete_delete(request, pk):
-#    athlete = get_object_or_404(Athlete, pk=pk)
-#    if request.method == 'POST':
-#        athlete.delete()
-#        return redirect('athlete_list')
-#    return render(request, 'athletic_department/athlete_confirm_delete.html', {'athlete': athlete})
-
 # End Athlete Records
 # Begin Employee Records
 
@@ -166,3 +136,63 @@ def employee_delete(request, employeeid):
         return render(request, 'athletic_department/confirm_emp_delete.html', {'employee': employee})
 
 # End Employee Resources
+# Begin Team Resources
+
+#class TeamCreateView(CreateView):
+    #model = Team
+    #template_name = 'athletic_department/team_details.html'
+    #fields = ['name', 'sport_type', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    #success_url = '/teams/'  # Redirect after successful creation
+
+def team_list(request):
+    teams = Team.objects.all()
+    return render(request, 'athletic_department/team_list.html', {'teams': teams})
+
+class TeamCreateView(CreateView):
+    model = Team
+    fields = ['teamid', 'name', 'sport_type', 'ranking', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    template_name = 'athletic_department/team_create.html'
+    success_url = reverse_lazy('team_list')
+
+class TeamUpdateView(UpdateView):
+    model = Team
+    fields = ['teamid', 'name', 'sport_type', 'rank', 'email', 'established_date', 'incomeS1', 'costS1', 'incomeS2', 'costS2']
+    template_name = 'athletic_department/team_form.html'
+    success_url = reverse_lazy('team_list')  # Ensure you have a URL named 'team_list'
+
+class TeamDeleteView(DeleteView):
+    model = Team
+    template_name = 'athletic_department/team_delete.html'
+    success_url = reverse_lazy('team_list')  # adjust this to where you want to redirect after deletion  
+
+class TeamDetailView(DetailView):
+    model = Team
+    form_class = TeamForm
+    template_name = 'athletic_department/team_detail.html'
+    success_url = '/teams/'   
+
+class TeamListView(ListView):
+    model = Team
+    form_class = TeamForm
+    template_name = 'athletic_department/team_list.html'
+    success_url = '/teams/'    
+
+def team_delete(request, teamid):
+    team = get_object_or_404(Team, teamid=teamid)
+    if request.method == 'POST':
+        team.delete()
+        return redirect('athletic_department:team_list')  # Redirect to the team list view after deletion
+    else:
+        return render(request, 'athletic_department/confirm_team_delete.html', {'team': team})
+    
+def team_detail(request, teamid):
+    team = get_object_or_404(Team, teamid=teamid)
+    return render(request, 'athletic_department/team_detail.html', {'team': team})
+
+def employee_detail(request, employeeid):
+    employee = get_object_or_404(Employee, employeeid=employeeid)
+    return render(request, 'athletic_department/employee_detail.html', {'employee': employee})
+
+def team_create(request, teamid):
+    team = get_object_or_404(Team, teamid=teamid)
+    return render(request, 'athletic_department/team_create.html', {'team': team})
