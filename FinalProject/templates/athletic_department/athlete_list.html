@@ -8,17 +8,33 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */ /* Removed to center content at the top */
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         h1 {
             color: red;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: left;
         }
         li {
-            margin-bottom: 10px;
-            padding: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         a {
@@ -36,24 +52,35 @@
         button:hover {
             background-color: darkred;
         }
+        .label {
+            font-weight: bold;
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <h1>Athlete List</h1>
-    <ul>
-        {% for athlete in athletes %}
-            <li>
-                <strong>{{ athlete.firstname }} {{ athlete.lastname }}</strong> ({{ athlete.position }}) - {{ athlete.academic_level }} - {{ athlete.contact }} - {{ athlete.sport_type }}
-                <div>
-                    <a href="{% url 'athlete_detail' athlete.athleteid %}"><button>Details</button></a>
-                    <a href="{% url 'athlete_delete' athlete.athleteid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No athletes found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'athlete_create' %}"><button>Add Athlete</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    <div class="container">
+        <h1>Athlete List</h1>
+        <ul>
+            {% for athlete in athletes %}
+                <li>
+                    <span class="label">AthleteID:</span> {{ athlete.athleteid }}<br>
+                    <span class="label">Name:</span> {{ athlete.firstname }} {{ athlete.lastname }}<br>
+                    <span class="label">Position:</span> {{ athlete.position }}<br>
+                    <span class="label">Academic Level:</span> {{ athlete.academic_level }}<br>
+                    <span class="label">Contact:</span> {{ athlete.contact }}<br>
+                    <span class="label">Sport Type:</span> {{ athlete.sport_type }}<br>
+                    <div>
+                        <a href="{% url 'athlete_detail' athlete.athleteid %}"><button>Details</button></a>
+                        <a href="{% url 'athlete_delete' athlete.athleteid %}"><button>Delete</button></a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No athletes found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'athlete_create' %}"><button>Add Athlete</button></a>
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
 </html>

@@ -8,17 +8,32 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         h1 {
             color: red;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: left;
         }
         li {
-            margin-bottom: 10px;
-            padding: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         a {
@@ -36,24 +51,40 @@
         button:hover {
             background-color: darkred;
         }
+        .label {
+            font-weight: bold;
+            color: red;
+        }
+   
     </style>
 </head>
 <body>
-    <h1>Team List</h1>
-    <ul>
-        {% for team in teams %}
-            <li>
-                <strong>{{ team.name }} {{ team.sport_type }}</strong> {{ team.established }} - {{ team.ranking }} - {{ team.email }} - {{ team.income }} - {{ team.cost }}
-                <div>
-                    <a href="{% url 'team_detail' team.teamid %}"><button>Details</button></a>
-                    <a href="{% url 'team_delete' team.teamid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No teams found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'athletic_department:team_create' %}"><button>Add Team</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    <div class="container">
+        <h1>Team List</h1>
+        <ul>
+            {% for team in teams %}
+                <li>
+                    <span class="label">TeamID:</span> <span class="info">{{ team.teamid }}</span><br>
+                    <span class="label">Name:</span> <span class="info">{{ team.name }}</span><br>
+                    <span class="label">Sport Type:</span> <span class="info">{{ team.sport_type }}</span><br>
+                    <span class="label">Ranking:</span> <span class="info">{{ team.ranking }}</span><br>
+                    <span class="label">Email:</span> <span class="info">{{ team.email }}</span><br>
+                    <span class="label">Established:</span> <span class="info">{{ team.established_date}}</span><br>
+                    <span class="label">Income S1:</span> <span class="info">{{ team.incomeS1 }}</span><br>
+                    <span class="label">Cost S1:</span> <span class="info">{{ team.costS1 }}</span><br>
+                    <span class="label">Income S2:</span> <span class="info">{{ team.incomeS2 }}</span><br>
+                    <span class="label">Cost S2:</span> <span class="info">{{ team.costS2 }}</span><br>
+                    <div>
+                        <a href="{% url 'team_detail' team.teamid %}"><button>Details</button></a>
+                        <a href="{% url 'team_delete' team.teamid %}"><button>Delete</button></a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No teams found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'athletic_department:team_create' %}"><button>Add Team</button></a>
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
 </html>

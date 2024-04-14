@@ -8,17 +8,32 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         h1 {
             color: red;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: left;
         }
         li {
-            margin-bottom: 10px;
-            padding: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         a {
@@ -36,24 +51,39 @@
         button:hover {
             background-color: darkred;
         }
+        .label {
+            font-weight: bold;
+            color: red;
+        }
+       
     </style>
 </head>
 <body>
-    <h1>Event List</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <strong>{{ event.name }} {{ event.annual_cost }}</strong> ({{ event.incomeS1 }}) - {{ event.costS1 }} - {{ event.incomeS2 }} - {{ event.costS2 }}
-                <div>
-                    <a href="{% url 'event_detail' event.eventid %}"><button>Details</button></a>
-                    <a href="{% url 'event_delete' event.eventid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No event found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'event_create' %}"><button>Add Event</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    <div class="container">
+        <h1>Event List</h1>
+        <ul>
+            {% for event in events %}
+                <li>
+                    <span class="label">EventID:</span> <span class="info">{{ event.eventid }}</span><br>
+                    <span class="label">Name:</span> <span class="info">{{ event.name }}</span><br>
+                    <span class="label">Team:</span> <span class="info">{{ event.team}}</span><br>
+                    <span class="label">Annual Cost:</span> <span class="info">{{ event.annual_cost }}</span><br>
+                    <span class="label">Year:</span> <span class="info">{{ event.date }}</span><br>
+                    <span class="label">Income S1:</span> <span class="info">{{ event.incomeS1 }}</span><br>
+                    <span class="label">Cost S1:</span> <span class="info">{{ event.costS1 }}</span><br>
+                    <span class="label">Income S2:</span> <span class="info">{{ event.incomeS2 }}</span><br>
+                    <span class="label">Cost S2:</span> <span class="info">{{ event.costS2 }}</span><br>
+                    <div>
+                        <a href="{% url 'event_detail' event.eventid %}"><button>Details</button></a>
+                        <a href="{% url 'event_delete' event.eventid %}"><button>Delete</button></a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No event found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'event_create' %}"><button>Add Event</button></a>
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
 </html>
