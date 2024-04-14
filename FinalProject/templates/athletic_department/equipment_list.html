@@ -8,17 +8,32 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         h1 {
             color: red;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: left;
         }
         li {
-            margin-bottom: 10px;
-            padding: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         a {
@@ -36,24 +51,38 @@
         button:hover {
             background-color: darkred;
         }
+        .label {
+            font-weight: bold;
+            color: red;
+        }
+        
     </style>
 </head>
 <body>
-    <h1>Equipment List</h1>
-    <ul>
-        {% for equipment in equipments %}
-            <li>
-                <strong>{{ equipment.name }} {{ equipment.annual_cost }}</strong> ({{ equipment.incomeS1 }}) - {{ equipment.costS1 }} - {{ equipment.incomeS2 }} - {{ equipment.costS2 }}
-                <div>
-                    <a href="{% url 'equipment_detail' equipment.equipmentid %}"><button>Details</button></a>
-                    <a href="{% url 'equipment_delete' equipment.equipmentid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No equipment found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'equipment_create' %}"><button>Add Athlete</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    <div class="container">
+        <h1>Equipment List</h1>
+        <ul>
+            {% for equipment in equipments %}
+                <li>
+                    <span class="label">EquipmentID:</span> <span class="info">{{ equipment.equipmentid }}</span><br>
+                    <span class="label">Name:</span> <span class="info">{{ equipment.name }}</span><br>
+                    <span class="label">Team:</span> <span class="info">{{ equipment.team }}</span><br>
+                    <span class="label">Annual Cost:</span> <span class="info">{{ equipment.annual_cost }}</span><br>
+                    <span class="label">Income S1:</span> <span class="info">{{ equipment.incomeS1 }}</span><br>
+                    <span class="label">Cost S1:</span> <span class="info">{{ equipment.costS1 }}</span><br>
+                    <span class="label">Income S2:</span> <span class="info">{{ equipment.incomeS2 }}</span><br>
+                    <span class="label">Cost S2:</span> <span class="info">{{ equipment.costS2 }}</span><br>
+                    <div>
+                        <a href="{% url 'equipment_detail' equipment.equipmentid %}"><button>Details</button></a>
+                        <a href="{% url 'equipment_delete' equipment.equipmentid %}"><button>Delete</button></a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No equipment found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'equipment_create' %}"><button>Add Equipment</button></a>
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
 </html>

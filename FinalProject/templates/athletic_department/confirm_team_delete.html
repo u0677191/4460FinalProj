@@ -2,14 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Team</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: red;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #fc0101;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            color: white;
+        }
+        input[type="submit"]:hover {
+            background-color: #e60000;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            border: 1px solid black;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+        a:hover {
+            background-color: #ccc;
+        }
+    </style>
 </head>
 <body>
-    <h1>Are you sure you want to delete "{{ object.name }}"?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="submit" value="Yes, delete it">
-    </form>
-    <a href="{% url 'team_list' %}">No, take me back</a>
+    <div class="container">
+        <h1>Are you sure you want to delete "{{ object.name }}"?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Yes, delete it">
+        </form>
+        <a href="{% url 'team_list' %}">No, take me back</a>
+    </div>
 </body>
 </html>

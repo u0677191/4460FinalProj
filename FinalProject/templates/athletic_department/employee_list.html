@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete List</title>
+    <title>Employee List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
         h1 {
             color: red;
+            margin-bottom: 20px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
+            text-align: left;
         }
         li {
-            margin-bottom: 10px;
-            padding: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
             border-bottom: 1px solid #ccc;
         }
         a {
@@ -36,24 +51,37 @@
         button:hover {
             background-color: darkred;
         }
+        .label {
+            font-weight: bold;
+            color: red;
+        }
+       
     </style>
 </head>
 <body>
-    <h1>Employee List</h1>
-    <ul>
-        {% for employee in employees %}
-            <li>
-                <strong>{{ employee.firstname }} {{ employee.lastname }}</strong> {{ employee.employeeid }} - {{ employee.title }} - {{ employee.start_date }} - {{ employee.cost }}
-                <div>
-                    <a href="{% url 'employee_detail' employee.employeeid %}"><button>Details</button></a>
-                    <a href="{% url 'employee_delete' employee.employeeid %}"><button>Delete</button></a>
-                </div>
-            </li>
-        {% empty %}
-            <li>No employees found.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'athletic_department:employee_create' %}"><button>Add Employee</button></a>
-    <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    <div class="container">
+        <h1>Employee List</h1>
+        <ul>
+            {% for employee in employees %}
+                <li>
+                    <span class="label">EmployeeID:</span> <span class="info">{{ employee.employeeid }}</span><br>
+                    <span class="label">Name:</span> <span class="info">{{ employee.firstname }} {{ employee.lastname }}</span><br>
+                    <span class="label">ID:</span> <span class="info">{{ employee.employeeid }}</span><br>
+                    <span class="label">Title:</span> <span class="info">{{ employee.title }}</span><br>
+                    <span class="label">Address:</span> <span class="info">{{ employee.address }}</span><br>
+                    <span class="label">Start Date:</span> <span class="info">{{ employee.start_date }}</span><br>
+                    <span class="label">Cost:</span> <span class="info">{{ employee.cost }}</span><br>
+                    <div>
+                        <a href="{% url 'employee_detail' employee.employeeid %}"><button>Details</button></a>
+                        <a href="{% url 'employee_delete' employee.employeeid %}"><button>Delete</button></a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No employees found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'athletic_department:employee_create' %}"><button>Add Employee</button></a>
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
 </html>
