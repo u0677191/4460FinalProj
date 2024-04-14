@@ -44,6 +44,7 @@ urlpatterns = [
     path('athletes', AthleteListView.as_view(), name='athlete_list'),  # Add this line
     path('', include('athletic_department.urls')),
     path('employees/', include((athletic_urls.urlpatterns, 'athletic_department'))),# namespace='athletic_department')),
+    path('athletic_department/', include('athletic_department.urls')),
     #path('', include('athletic_department.urls')),
     #path('employees/', EmployeeListView.as_view(), name='employee_list'),
     #path('employees/', include('athletic_department.urls', namespace='athletic_department')),
