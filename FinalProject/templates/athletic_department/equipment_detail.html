@@ -3,13 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ equipment.name }}</title>
+    <title>{{ equipment.name}} </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: red;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        strong {
+            color: red;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ equipment.name }}</h1>
-    <p><strong>Date:</strong> {{ equipment.date }}</p>
-    <p><strong>Season 1 Cost:</strong> {{ equipment.costS1 }}</p>
-    <p><strong>Season 1 Income:</strong> {{ equipment.incomeS1 }}</p>
+    <div class="container">
+        <h1>{{ equipment.name}}</h1>
+        <p><strong>EquipmentID:</strong> {{ equipment.equipmentid }}</p>
+        <p><strong>Name:</strong> {{ equipment.name }}</p>
+        <p><strong>Team:</strong> {{ equipment.team }}</p>
+        <p><strong>Annual Cost:</strong> {{ equipment.annual_cost }}</p>
+        <p><strong>Income S1:</strong> {{ equipment.incomeS1 }}</p>
+        <p><strong>Cost S1:</strong> {{ equipment.costS1 }}</p>
+        <p><strong>Income S2:</strong> {{ equipment.incomeS2 }}</p>
+        <p><strong>Cost S2:</strong> {{ equipment.costS2 }}</p>
+        
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+    </div>
 </body>
-<a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
 </html>

@@ -59,7 +59,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Are you sure you want to delete "{{team.name }}"?</h1>
+        <h1>Are you sure you want to delete {{team.name }}?</h1>
         <form method="post">
             {% csrf_token %}
             <input type="submit" value="Yes, delete it">

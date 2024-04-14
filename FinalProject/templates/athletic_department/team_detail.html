@@ -2,16 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Team Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ team.name }} </title>
+    <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: red;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        strong {
+            color: red;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
-    <h1>{% if object %}Edit Team{% else %}New Team{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    <a href="{% url 'team_list' %}">Back to List</a>
+    <div class="container">
+        <h1>{{ team.name }}</h1>
+        <p><strong>TeamID:</strong> {{ team.teamid}}</p>
+        <p><strong>Sports Typoe:</strong> {{ team.sport_type}}</p>
+        <p><strong>Ranking:</strong> {{ team.ranking}}</p>
+        <p><strong>Email:</strong> {{ team.email}}</p>
+        <p><strong>Established Date:</strong> {{ team.established_date}}</p>
+        <p><strong>Income S1:</strong> {{ team.incomeS1}}</p>
+        <p><strong>Cost S1:</strong> {{ team.costS1}}</p>
+        <p><strong>Income S2:</strong> {{ team.incomeS2}}</p>
+        <p><strong>Cost S2:</strong> {{ team.costS2}}</p>
+        
+        <a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
+        
+    </div>
 </body>
-<a href="{% url 'athletic_department:employee_dashboard' %}"><button>Return to Dashboard</button></a>
 </html>
