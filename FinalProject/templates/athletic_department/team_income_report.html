@@ -1,0 +1,58 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Income Report</title>
+</head>
+<body>
+    <h1>Team Income Report</h1>
+    <ul>
+        {% for team in teams %}
+        <li>
+            {{ team.name }} - Season 1 Net Income: {{ team.net_income_s1 }}, Season 2 Net Income: {{ team.net_income_s2 }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Income Report</title>
+</head>
+<body>
+    <h1>Team Income Report</h1>
+    <!-- Form for selecting team and season -->
+    <form action="{% url 'team_income_report' %}" method="POST">
+        {% csrf_token %}
+        <label for="team">Select a Team:</label>
+        <select name="team" id="team">
+            {% for team in teams %}
+            <option value="{{ team.teamid }}">{{ team.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="season">Select a Season:</label>
+        <select name="season" id="season">
+            <option value="1">Season 1</option>
+            <option value="2">Season 2</option>
+        </select>
+
+        <input type="submit" value="Generate Report">
+    </form>
+
+    <!-- Display the results here -->
+    {% if selected_team %}
+    <h2>Report for {{ selected_team.name }}</h2>
+    {% if selected_season == '1' %}
+    <p>Season 1 Net Income: {{ selected_team.net_income_s1 }}</p>
+    {% else %}
+    <p>Season 2 Net Income: {{ selected_team.net_income_s2 }}</p>
+    {% endif %}
+    {% endif %}
+</body>
+</html>

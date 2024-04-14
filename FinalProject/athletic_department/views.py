@@ -310,7 +310,42 @@ def event_delete(request, eventid):
 
 def event_create(request, eventid):
     event = get_object_or_404(Event, eventid=eventid)
-    return render(request, 'athletic_department/event_create.html', {'event': event})    
+    return render(request, 'athletic_department/event_create.html', {'event': event})  
+
+#def team_income_report(request):
+#    teams = Team.objects.all()
+#    # Prepare data with net income calculations
+#    teams_data = [
+#        {
+#            'name': team.name,
+#            'net_income_s1': team.incomeS1 - team.costS1,
+#            'net_income_s2': team.incomeS2 - team.costS2,
+#        }
+#        for team in teams
+#    ]
+#    return render(request, 'athletic_department/team_income_report.html', {'teams': teams_data})
+
     
 # Begin Admin Reports Resources
+
+def team_income_report(request):
+    teams = Team.objects.all()
+    selected_team = None
+    selected_season = None
+
+    if request.method == 'POST':
+        team_id = request.POST.get('team')
+        season = request.POST.get('season')
+        selected_team = Team.objects.get(teamid=team_id)
+        if season == '1':
+            selected_team.net_income_s1 = selected_team.incomeS1 - selected_team.costS1
+        else:
+            selected_team.net_income_s2 = selected_team.incomeS2 - selected_team.costS2
+        selected_season = season
+
+    return render(request, 'athletic_department/team_income_report.html', {
+        'teams': teams,
+        'selected_team': selected_team,
+        'selected_season': selected_season
+    })
 

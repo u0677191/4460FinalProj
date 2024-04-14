@@ -6,7 +6,7 @@ from .views import (AthleteCreateView, TeamCreateView, TeamUpdateView, TeamDetai
                     employee_detail, employee_delete, athlete_list, athlete_detail, employee_create, equipment_detail, equipment_list, 
                     equipment_delete, team_list, team_delete, team_detail, team_create, employee_list, EventCreateView, 
                     EventDeleteView, EventUpdateView, EventDetailView, event_detail, event_list, event_create, event_delete, 
-                    )
+                    team_income_report)
 
 #app_name = 'athletic_department'
 
@@ -70,7 +70,11 @@ urlpatterns = [
     path('event/<int:pk>/delete/', EventDeleteView.as_view(), name='event_delete'),
     path('event/delete/<str:eventid>/', event_delete, name='event_delete'),
     path('event/', event_list, name='event_list'),
-    path('event/<str:athleteid>/', event_detail, name='event_detail'),
+    path('event/<str:eventid>/', event_detail, name='event_detail'),
+
+    # Begin Admin Income Report Path
+
+    path('team-income-report/', team_income_report, name='team_income_report'),
 ]
 
 
